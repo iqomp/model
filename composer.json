@@ -1,0 +1,40 @@
+{
+    "name": "iqomp/model",
+    "description": "Generalization database model for standardize usage",
+    "type": "library",
+    "license": "MIT",
+    "version": "1.0.0",
+    "authors": [
+        {
+            "name": "Iqbal Fauzi",
+            "email": "iqbalfawz@gmail.com"
+        }
+    ],
+    "require": {
+        "iqomp/config": "^1.2"
+    },
+    "extra": {
+        "iqomp/config": "iqomp/config/",
+        "iqomp/locale": "iqomp/locale/"
+    },
+    "autoload": {
+        "psr-4": {
+            "Iqomp\\Model\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Iqomp\\Model\\Tests\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "iqomp/validator": "^1.0",
+        "iqomp/formatter": "^1.0",
+        "phpunit/phpunit": "^9.4",
+        "squizlabs/php_codesniffer": "^3.5"
+    },
+    "scripts": {
+        "test": "./vendor/bin/phpunit tests",
+        "lint": "./vendor/bin/phpcs --standard=PSR12 src"
+    }
+}

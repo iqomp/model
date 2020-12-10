@@ -1,0 +1,25 @@
+{
+    "user": [
+        {"id": 1, "name": "User One",   "created": "2010-02-01 10:10:11"},
+        {"id": 2, "name": "User Two",   "created": "2010-02-01 10:10:12"},
+        {"id": 3, "name": "User Three", "created": "2010-02-01 10:10:13"},
+        {"id": 4, "name": "User Four",  "created": "2010-02-01 10:10:14"},
+        {"id": 5, "name": "User Five",  "created": "2010-02-01 10:10:15"}
+    ],
+    "post": [
+        {"id": 1, "title": "Title One"},
+        {"id": 2, "title": "Title Two"}
+    ],
+    "post_tag": [
+        {"id": 1, "name": "Tag One"},
+        {"id": 2, "name": "Tag Two"},
+        {"id": 3, "name": "Tag Three"}
+    ],
+    "post_tag_chain": [
+        {"id": 1, "post": 1, "post_tag": 1},
+        {"id": 2, "post": 1, "post_tag": 2},
+        {"id": 3, "post": 2, "post_tag": 1},
+        {"id": 4, "post": 2, "post_tag": 2},
+        {"id": 5, "post": 2, "post_tag": 3}
+    ]
+}
