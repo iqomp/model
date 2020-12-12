@@ -3,7 +3,7 @@
 /**
  * Model object builder
  * @package iqomp/model
- * @version 1.0.0
+ * @version 1.0.1
  */
 
 namespace Iqomp\Model;
@@ -63,14 +63,14 @@ class Model
             }
         }
 
-        foreach ($connections as $type => $name) {
+        foreach ($connections as $action => $name) {
             if (!isset($configs['connections'][$name])) {
                 $msg = 'DB connection config named `' . $name . '` not found';
                 throw new ConnectionNotFoundException($msg);
             }
 
-            $connections[$type] = $configs['connections'][$name];
-            $connections[$type]['name'] = $name;
+            $connections[$action] = $configs['connections'][$name];
+            $connections[$action]['name'] = $name;
         }
 
         if ($connections['read']['driver'] != $connections['write']['driver']) {

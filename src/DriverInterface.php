@@ -3,7 +3,7 @@
 /**
  * Database driver interface
  * @package iqomp/model
- * @version 1.0.0
+ * @version 1.0.1
  */
 
 namespace Iqomp\Model;
@@ -26,11 +26,12 @@ interface DriverInterface
     // public function autocommit(bool $mode, string $conn='write'): bool;
 
     /**
-     * Count averate value of field
+     * Count average value of field
      * @param string $field the field sum total to average
      * @param array $where Where condition
+     * @return float Average value of the column
      */
-    public function avg(string $field, array $where = []);
+    public function avg(string $field, array $where = []): float;
 
     /**
      * Count total rows in table
@@ -38,14 +39,6 @@ interface DriverInterface
      * @return int Total row
      */
     public function count(array $where = []): int;
-
-    /**
-     * Count total row grouped by some column
-     * @param string $field Group counted rows by value of this field
-     * @param array $where Where condition
-     * @return array column-total pair of result
-     */
-    public function countGroup(string $field, array $where = []): array;
 
     /**
      * Insert single data to database
@@ -201,14 +194,6 @@ interface DriverInterface
      * @return int total sum of the field value.
      */
     public function sum(string $field, array $where = []): int;
-
-    /**
-     * Sum multiple fields at once
-     * @param array $fields List of fields to sums
-     * @param array $where Where condition
-     * @return array field->total pair of result.
-     */
-    public function sumFs(array $fields, array $where = []): array;
 
     /**
      * Truncate the table

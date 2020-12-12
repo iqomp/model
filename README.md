@@ -156,11 +156,12 @@ list of method that should be implemented by the driver:
 __construct(array $options);
 
 /**
- * Count averate value of field
+ * Count average value of field
  * @param string $field the field sum total to average
  * @param array $where Where condition
+ * @return float Average value of the column
  */
-avg(string $field, array $where = []);
+avg(string $field, array $where = []): float;
 
 /**
  * Count total rows in table
@@ -168,14 +169,6 @@ avg(string $field, array $where = []);
  * @return int Total row
  */
 count(array $where = []): int;
-
-/**
- * Count total row grouped by some column
- * @param string $field Group counted rows by value of this field
- * @param array $where Where condition
- * @return array column-total pair of result
- */
-countGroup(string $field, array $where = []): array;
 
 /**
  * Insert single data to database
@@ -327,14 +320,6 @@ set(array $fields, array $where = []): bool;
  * @return int total sum of the field value.
  */
 sum(string $field, array $where = []): int;
-
-/**
- * Sum multiple fields at once
- * @param array $fields List of fields to sums
- * @param array $where Where condition
- * @return array field->total pair of result.
- */
-sumFs(array $fields, array $where = []): array;
 
 /**
  * Truncate the table
