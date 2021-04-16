@@ -1,9 +1,6 @@
 <?php
 
 return [
-    'connections' => [
-        // 'name' => ['options']
-    ],
     'drivers' => [
         // 'name' => 'Class'
     ],
