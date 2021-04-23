@@ -3,7 +3,7 @@
 /**
  * Model object builder
  * @package iqomp/model
- * @version 1.0.1
+ * @version 2.0.0
  */
 
 namespace Iqomp\Model;
@@ -16,32 +16,25 @@ class Model
 
     protected static function buildModel($model)
     {
-        $configs = Config::get('database');
-
-        if (!$configs['connections']) {
-            $msg = 'No database connections registered on your config';
-            throw new ConnectionNotFoundException($msg);
-        }
+        $configs = config('model');
+        $conns   = config('databases');
 
         if (!$configs['drivers']) {
             $msg = 'No model driver installed, please install one';
             throw new DriverNotInstalledException($msg);
         }
 
+        $connections = [
+            'read'  => null,
+            'write' => null
+        ];
+
         $options = [
             'model'       => $model,
             'table'       => $model::$table,
             'chains'      => $model::$chains ?? [],
             'q_fields'    => $model::$q_fields ?? [],
-            'connections' => [
-                'write'     => null,
-                'read'      => null
-            ]
-        ];
-
-        $connections = [
-            'read'  => null,
-            'write' => null
+            'connections' => $connections
         ];
 
         if (isset($configs['models'][$model])) {
@@ -64,12 +57,12 @@ class Model
         }
 
         foreach ($connections as $action => $name) {
-            if (!isset($configs['connections'][$name])) {
+            if (!isset($conns[$name])) {
                 $msg = 'DB connection config named `' . $name . '` not found';
                 throw new ConnectionNotFoundException($msg);
             }
 
-            $connections[$action] = $configs['connections'][$name];
+            $connections[$action] = $conns[$name];
             $connections[$action]['name'] = $name;
         }
 

@@ -1,21 +1,9 @@
 # iqomp/model
 
-Standardize usage of database model. Every database adapter out there use different
-way to connect to database, and different way to interact with the database table.
-It make it hard for one module to interact with database because every database
-model has different way of usage. The way we solve the problem so far is to put
-that responsible back to app developer to provide the data for the module or to
-create new interface that the app developer need to implement on their new created
-class only to suit the need of the module.
-
-This make app developer to create special data provider for every module that need
-special data from database.
-
-This module make it possible for ex module to use app database without knowing
-the type of database the app use, and without knowing what database adapter the
-app use.
-
-It still need database adapter converter for sure, which is now is still limited.
+The other way to manage database with style. The main purpose of this module is
+to create a way to interact with database without handle connection and the
+manegement it self. This is other way to communicate with database other than
+the way hyperf use it.
 
 ## Installation
 
@@ -23,43 +11,22 @@ It still need database adapter converter for sure, which is now is still limited
 composer require iqomp/model
 ```
 
+## Publishing Config
+
+```bash
+php bin/hyperf.php vendor:publish iqomp/model
+```
+
 ## Configuration
 
-This module use [iqomp/config](https://github.com/iqomp/config) for app config
-managemenet. Create new file named `iqomp/config/database.php` under you module
-or app main directory, and fill it with content as below:
+The configurasion is saved at `config/autoload/model.php` that contain which model
+connection type to use for some model. The database connection it self is return
+back to hyperf style.
 
 ```php
 <?php
 
 return [
-    'connections' => [
-        'default' => [
-            'driver'    => 'pdo',
-            'type'      => 'mysql',
-            'configs'   => [
-                'master'      => [
-                    'host'      => 'localhost',
-                    'user'      => 'root',
-                    'passwd'    => '',
-                    'dbname'    => 'mydb',
-                    'port'      => '3306',
-                    'socket'    => '/tmp/mysql.sock'
-                ],
-                'slave'     => [
-                    'host'      => 'otherhost',
-                    'user'      => 'root',
-                    'passwd'    => '',
-                    'dbname'    => 'mydb',
-                    'port'      => '3306',
-                    'socket'    => '/tmp/mysql.sock'
-                ]
-            ]
-        ],
-        'other' => [
-            // ...
-        ]
-    ],
     'drivers' => [
         'pdo' => 'PDO\\Driver\\Class',
         // ...
@@ -76,13 +43,6 @@ return [
     ]
 ];
 ```
-
-### connections
-
-This property contains all database connectins. The only required property is
-`driver`, while the others property is used only by driver. Different database
-may have different configs. Most of the time, this property provided by app
-developers
 
 ### drivers
 
@@ -116,7 +76,7 @@ class Product extends \Iqomp\Model\Model
 
 Driver is the one that manage connection to database and communication with the
 database. Each driver should register it self as model driver with content config
-as file `iqomp/config/database.php` as below:
+as file `config/autoload/model.php` as below:
 
 ```php
 <?php
@@ -126,16 +86,6 @@ return [
         'name' => 'Class'
     ]
 ];
-```
-
-And add `extra` field on driver module `composer.json` as below:
-
-```json
-{
-    "extra": {
-        "iqomp/config": "iqomp/config/"
-    }
-}
 ```
 
 Driver class should implement interface `Iqomp\Model\DriverInterface`. Below are
