@@ -3,14 +3,14 @@
 /**
  * Model object validator
  * @package iqomp/model
- * @version 1.0.0
+ * @version 2.1.0
  */
 
 namespace Iqomp\Model;
 
 class Validator
 {
-    public static function unique($value, $options): ?array
+    public static function unique($value, $options, object $object): ?array
     {
         if (is_null($value)) {
             return null;
@@ -21,7 +21,17 @@ class Validator
         // $mself  = $options->self ?? null;
         $mwhere = $options['where'] ?? null;
 
-        $cond = [$mfield => $value];
+        if (is_string($mfield)) {
+            $cond = [$mfield => $value];
+        } elseif (is_array($mfield)) {
+            foreach ($mfield as $o_prop => $t_field) {
+                if(is_numeric($o_prop)) {
+                    $o_prop = $t_field;
+                }
+            }
+            $cond[$t_field] = $object->$o_prop;
+        }
+
         if ($mwhere) {
             $cond = array_replace($mwhere, $cond);
         }

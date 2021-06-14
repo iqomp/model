@@ -477,6 +477,27 @@ Make sure the data is not yet on database:
     // ...
 ```
 
+If there're multiple column to be test, set `field` property value as array:
+
+```php
+    // ...
+    'rules' => [
+        'unique' => [
+            'model' => 'Company\\Project\\Model\\Product',
+            'field' => [
+                // same name of table column and object property
+                'slug',
+
+                // object property => table column
+                'wallet' => 'wallet_id'
+
+            ],
+            'where' => [ /* ... */ ] // additional where condition
+        ]
+    ]
+    // ...
+```
+
 ### exists
 
 Make sure the data is in database:
