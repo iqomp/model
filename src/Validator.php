@@ -3,7 +3,7 @@
 /**
  * Model object validator
  * @package iqomp/model
- * @version 2.1.0
+ * @version 2.1.1
  */
 
 namespace Iqomp\Model;
@@ -28,8 +28,8 @@ class Validator
                 if(is_numeric($o_prop)) {
                     $o_prop = $t_field;
                 }
+                $cond[$t_field] = $object->$o_prop;
             }
-            $cond[$t_field] = $object->$o_prop;
         }
 
         if ($mwhere) {
