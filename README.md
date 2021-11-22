@@ -44,6 +44,7 @@ return [
     'chains' => [
         'Model\\Class\\Name' => [
             '/field/' => [
+                'model' => 'Model\\Other\\Class',
                 'self' => 'id',
                 'children' => 'wallet_id',
                 'type' => 'left'
@@ -81,6 +82,7 @@ class Product extends \Iqomp\Model\Model
 
     public static $chains = [
         '/field/' => [
+            'model' => 'Model\\Other\\Class',
             'self' => 'id',
             'children' => 'wallet_id',
             'type' => 'left'
