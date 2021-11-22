@@ -3,7 +3,7 @@
     "description": "Generalization database model for standardize usage",
     "type": "library",
     "license": "MIT",
-    "version": "2.1.1",
+    "version": "2.2.0",
     "authors": [
         {
             "name": "Iqbal Fauzi",

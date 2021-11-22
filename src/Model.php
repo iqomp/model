@@ -3,7 +3,7 @@
 /**
  * Model object builder
  * @package iqomp/model
- * @version 2.0.0
+ * @version 2.2.0
  */
 
 namespace Iqomp\Model;
@@ -36,6 +36,17 @@ class Model
             'q_fields'    => $model::$q_fields ?? [],
             'connections' => $connections
         ];
+
+        // chains
+        $chains = $configs['chains'] ?? null;
+        if ($chains) {
+            if (isset($chains[$model])) {
+                $model_chain = $chains[$model];
+                $opt_chain = $options['chains'];
+                $opt_chain = array_replace_recursive($opt_chain, $model_chain);
+                $options['chains'] = $opt_chain;
+            }
+        }
 
         if (isset($configs['models'][$model])) {
             $connections = $configs['models'][$model];

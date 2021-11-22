@@ -2,5 +2,6 @@
 
 return [
     'models' => [],
-    'drivers' => []
+    'drivers' => [],
+    'chains' => []
 ];

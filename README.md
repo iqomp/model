@@ -40,6 +40,15 @@ return [
             'read' => 'slave',
             'write' => 'master'
         ]
+    ],
+    'chains' => [
+        'Model\\Class\\Name' => [
+            '/field/' => [
+                'self' => 'id',
+                'children' => 'wallet_id',
+                'type' => 'left'
+            ]
+        ]
     ]
 ];
 ```
@@ -69,6 +78,14 @@ namespace Company\Project;
 class Product extends \Iqomp\Model\Model
 {
     public static $table = 'product';
+
+    public static $chains = [
+        '/field/' => [
+            'self' => 'id',
+            'children' => 'wallet_id',
+            'type' => 'left'
+        ]
+    ];
 }
 ```
 
